@@ -49,7 +49,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'kaizen',
+			'database'  => 'laravelsite',
 			'username'  => 'homestead',
 			'password'  => 'secret',
 			'charset'   => 'utf8',
