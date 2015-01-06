@@ -62,9 +62,9 @@ class AuthController extends BaseController {
 
         $this->service->updateLastLoggedAt();
 
-        return Redirect::action('UserController@getProfile',Auth::user()->id);
+//        return Redirect::action('UserController@getProfile',Auth::user()->id);
 
-//        return Redirect::intended('/');
+        return Redirect::intended('/');
     }
 
 
