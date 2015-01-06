@@ -1,0 +1,37 @@
+.panel-heading {
+    background-image: url("../images/SlidesActiveeng.png") !important;
+    background-position: left !important;
+}
+
+#statistic_feed {
+    padding-top: 10px;
+}
+
+/* Chnage edge position in english for home page slider */
+span.tag:after {
+    left: 200px !important;
+    border-radius: 0 0 42px 0 !important;
+    -moz-transform-origin: 0 0 !important;
+    -moz-transform: rotate(-140deg) translate(-71%, -26%) !important;
+    -webkit-transform-origin: 0 0 !important;
+    -webkit-transform: rotate(-140deg) translate(-71%, -26%) !important;
+    transform-origin: 0 0 !important;
+    transform: rotate(-140deg) translate(-71%, -26%) !important;
+
+}
+
+.carousel-caption {
+    width: 35% !important;
+    margin-left: 44.5% !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    padding-top: 0 !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+    background-image: url("../images/MenuInactiveen.png");
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    background-image: url("../images/MenuActiveen.png");
+}
