@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder {
             $this->call('EventsTableSeeder');
             $this->call('EventCountryTableSeeder');
             $this->call('EventPriceTableSeeder');
+            $this->call('SettingsTableSeeder');
 //            $this->call('TagTableSeeder');
 //            $this->call('TaggableTableSeeder');
 //            $this->call('CommentsTableSeeder');

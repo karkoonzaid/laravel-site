@@ -44,6 +44,7 @@ class EventsTableSeeder extends Seeder {
                     'latitude'       => $faker->latitude,
                     'longitude'      => $faker->longitude,
                     'featured'       => (bool) rand(0, 1),
+                    'free'           => '0',
                     'created_at'     => $dateNow,
                     'updated_at'     => $dateNow,
                     'button_en'      => 'Subscribe',

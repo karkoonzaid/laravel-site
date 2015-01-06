@@ -17,7 +17,11 @@ class SettingsTableSeeder extends Seeder {
                 [
                     'approval_type'=> 'DIRECT',
                     'registration_types' => 'VIP,ONLINE',
-                    'settingable_id' => '1',
+                    'vip_total_seats' => '200',
+                    'online_total_seats' => '100',
+                    'online_available_seats' => '100',
+                    'vip_available_seats' => '200',
+                    'settingable_id' => $event,
                     'settingable_type' => 'EventModel',
                     'created_at' => new DateTime,
                     'updated_at' => new DateTime
