@@ -6,7 +6,6 @@
     @section('sidebar')
         @include('site.events._latest')
         @include('site.blog._latest')
-        @include('site.partials.twitter')
         @include('site.partials.newsletter')
     @show
 </div>
