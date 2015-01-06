@@ -1,1 +1,1 @@
-Site Built in Laravel 4.2 
+Custom CMS and Event Management System Built in Laravel 4.2 
