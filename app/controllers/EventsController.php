@@ -156,15 +156,20 @@ class EventsController extends BaseController {
 
     }
 
-    private function isOnlineEvent($event)
+    /**
+     * Check if the event is an online Event
+     * @param EventModel $event
+     * @return bool
+     */
+    private function isOnlineEvent(EventModel $event)
     {
         $setting           = $event->setting;
         $registrationTypes = explode(',', $setting->registration_types);
         if ( in_array('ONLINE', $registrationTypes) ) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -320,12 +325,6 @@ class EventsController extends BaseController {
 
         $price = [];
 
-        // initialize prices
-//        array (size=3)
-//        'vip' => string '1222' (length=4)
-//        'online' => string '121' (length=3)
-//        'normal' => string '22' (length=2)
-
         foreach ( $eventPrices as $eventPrice ) {
             $price[strtolower($eventPrice->type)] = $eventPrice->price;
         }
@@ -356,6 +355,11 @@ class EventsController extends BaseController {
 
     }
 
+    /**
+     * @param $id EventID
+     * After the User subscription, redirect to this page with suggested event
+     * Suggested Events are based on category and tags related to the subscribed event
+     */
     public function getSuggestedEvents($id)
     {
         $event = $this->eventRepository->findById($id);
@@ -377,7 +381,7 @@ class EventsController extends BaseController {
                 // fetch one random event
                 $categoryEvent = $categoryEvents->random(1);
 
-                // get the Event Model and store it in an arryay
+                // get the Suggested Event Model and store it in an arryay
                 $suggestedCategoryEvent = $this->eventRepository->findById($categoryEvent->id);
             }
         }
@@ -417,19 +421,22 @@ class EventsController extends BaseController {
 
     }
 
+    /**
+     * @param $id EventID
+     * @return \Illuminate\Http\RedirectResponse
+     * Users can click a button to reorganize specific event
+     */
     public function reorganizeEvents($id)
     {
         $user = Auth::user();
 
-        if ( $user ) {
-            //check whether seats are empty
-            $event        = $this->eventRepository->findById($id);
-            $eventExpired = $this->eventRepository->eventExpired($event->date_start);
+        //check whether seats are empty
+        $event        = $this->eventRepository->findById($id);
+        $eventExpired = $this->eventRepository->eventExpired($event->date_start);
 
-            if ( $eventExpired ) {
-                if ( !$event->reorganize->contains($user->id) ) {
-                    $event->reorganize()->attach($user, ['created_at' => Carbon::now()]);
-                }
+        if ( $eventExpired ) {
+            if ( !$event->reorganize->contains($user->id) ) {
+                $event->reorganize()->attach($user, ['created_at' => Carbon::now()]);
             }
         }
 
@@ -437,7 +444,7 @@ class EventsController extends BaseController {
     }
 
     /**
-     * Stream event from electa service
+     * Stream the online event using Electa service
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -468,10 +475,10 @@ class EventsController extends BaseController {
 
         }
 
+        // find whether the user is in the confirmed list
         $subscription = $event->subscriptions()->where('user_id', $user->id)->where('status', 'CONFIRMED')->first();
 
         // If user has a subscription and subscription is not confirmed
-//        if ( $subscription->status != 'CONFIRMED' ) {
         if ( !$subscription ) {
 
             return Redirect::action('EventsController@index')->with('error', trans('general.subscription_not_confirmed'));
@@ -487,7 +494,6 @@ class EventsController extends BaseController {
         if ( !$this->getStreamSettings() ) {
 
             return Redirect::action('EventsController@show', $id)->with('info', trans('word.system_error'));
-
         }
 
         list($token, $cid, $launchUrl) = $this->getStreamSettings();
@@ -575,6 +581,11 @@ class EventsController extends BaseController {
 
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse|string
+     * Just to test the online event
+     * only for admin
+     */
     public function onlineTestEvent()
     {
         if ( Auth::user()->id != 1 ) {
@@ -611,7 +622,7 @@ class EventsController extends BaseController {
     /**
      * @param $event
      * @return mixed
-     * // todo make this function SRP, and move away from this controller and payments controller
+     * // todo make this function abide SRP, and move away from this controller and payments controller
      */
     public function processCountry($event)
     {
