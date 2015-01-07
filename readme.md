@@ -6,7 +6,7 @@ Site has following features.
 
 1- Subscribing users to Events as VIP or Normal or Online
 
-2- Full featured Authenticated System
+2- Full featured Authentication System
 
 folder 'src' in the root directory has folders with the same name as the model name. this is just a convention I chose to organize the code
 
